@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+
+    flask:
+      build: ./flask
+      container_name: flask
+      depends_on:
+          - redis
+      restart: always
+      environment:
+         - APP_NAME=MyFlaskAPP
+      expose:
+         - 8080
+
+    redis:
+       image: "redis:alpine"
+       container_name: redis
+       ports:
+         - "8379:8379"
+       
+    nginx:
+       build: ./nginx
+       container_name: nginx
+       restart: always
+       ports:
+          - "80:80"
+
+
